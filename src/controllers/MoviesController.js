@@ -4,7 +4,7 @@ class MoviesController {
     async create(request, response) {
         const { movie_title, movie_description, avaliation, tags } =
             request.body;
-        const { user_id } = request.params;
+        const user_id = request.user.id;
 
         const [movie_id] = await knex('movies').insert({
             movie_title,

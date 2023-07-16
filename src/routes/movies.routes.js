@@ -2,11 +2,15 @@ const { Router } = require('express');
 
 const MoviesController = require('../controllers/MoviesController');
 
+const ensureAuthenticated = require('../middlewares/ensureAuthenticated');
+
 const moviesRoutes = Router();
 
 const moviesControllers = new MoviesController();
 
-moviesRoutes.post('/:user_id', moviesControllers.create);
+moviesRoutes.use(ensureAuthenticated);
+
+moviesRoutes.post('/', moviesControllers.create);
 moviesRoutes.get('/:id', moviesControllers.show);
 
 module.exports = moviesRoutes;
